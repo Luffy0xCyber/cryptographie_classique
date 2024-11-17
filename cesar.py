@@ -5,15 +5,17 @@ def cesar_shifting(letter, key):
     param key: la valeur de décalage
     return: la lettre décalée
     """
-    if letter.isalpha():
-        if letter.isupper():
-            position_initial = ord('A')
-        else:
-            position_initial = ord('a')
+    position_initial=0
+    #isascii() c True que la lettre est entre A - Z (pour le if) a - z ou (pour le elif)
+    if letter.isascii() and letter.isupper():
+        position_initial = ord('A')
+    elif letter.isascii() and letter.islower():
+        position_initial = ord('a')
+    # Si la position initiale est diff de 0 c que c une lettre (A-Z ou a-z)
+    if position_initial != 0:
         return chr((((ord(letter) - position_initial) + key) %26) + position_initial)
-    else:
-        return letter
-
+    # Et donc pour le dernier return si la position initial = 0 ça veut dire que c pas une lettre alphabétique
+    return letter
 
 def cesar(message, key):
     """
@@ -38,9 +40,9 @@ def build_cesar_key(cryptogramme):
     """
     # Initier un dict pour enregistre cheque lettre et sa fréquence
     lettre_et_frequence = {}
-    for lettre in cryptogramme:
+    for lettre in cryptogramme.lower():
         # S'assurer que la lettre est bien alphanumérique et pas des caractères cm '-'
-        if lettre.isalpha():
+        if lettre.isascii():
             if lettre in lettre_et_frequence:
                 lettre_et_frequence[lettre] +=1
             else:
@@ -66,6 +68,4 @@ def crypto_cesar(cryptogramme):
     cle = build_cesar_key(cryptogramme)
     # décrypter :
     message_clair = cesar(cryptogramme, -cle)
-    # print debug (tjrs le problème avec les accents cm é,è...)
-    print(message_clair)
     return message_clair
