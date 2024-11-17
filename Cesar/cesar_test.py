@@ -1,5 +1,5 @@
 import unittest
-from Chiffrement.cesar import *
+from Chiffrement.Cesar.cesar import *
 
 
 class TestCesar(unittest.TestCase):
