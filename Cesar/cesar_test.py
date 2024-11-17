@@ -23,7 +23,7 @@ class TestCesar(unittest.TestCase):
         test_crypto = cesar("Exige beaucoup de toi-même et attends peu des autres. Ainsi beaucoup d'ennuis te seront épargnés.", 7)
         expected_results = 7
         assert build_cesar_key(test_crypto) == expected_results
-    # TODO : Problème avec accents
+
     def test_crypto_cesar(self):
         """Test case pour la méthode très naïve.'"""
         expected_results = "Exige beaucoup de toi-même et attends peu des autres. Ainsi beaucoup d'ennuis te seront épargnés."
