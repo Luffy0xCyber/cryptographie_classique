@@ -5,17 +5,16 @@ def cesar_shifting(letter, key):
     param key: la valeur de décalage
     return: la lettre décalée
     """
-    position_initial=0
-    #isascii() c True que la lettre est entre A - Z (pour le if) a - z ou (pour le elif)
-    if letter.isascii() and letter.isupper():
-        position_initial = ord('A')
-    elif letter.isascii() and letter.islower():
-        position_initial = ord('a')
-    # Si la position initiale est diff de 0 c que c une lettre (A-Z ou a-z)
-    if position_initial != 0:
-        return chr((((ord(letter) - position_initial) + key) %26) + position_initial)
-    # Et donc pour le dernier return si la position initial = 0 ça veut dire que c pas une lettre alphabétique
-    return letter
+    # Si la lettre est majuscule
+    if 'A' <= letter <= 'Z':
+        return chr((ord(letter) - ord('A') + key) % 26 + ord('A'))
+    # Si la lettre est minuscule
+    elif 'a' <= letter <= 'z':
+        return chr((ord(letter) - ord('a') + key) % 26 + ord('a'))
+    # Si c pas une lettre
+    else:
+        return letter
+
 
 def cesar(message, key):
     """
@@ -42,7 +41,7 @@ def build_cesar_key(cryptogramme):
     lettre_et_frequence = {}
     for lettre in cryptogramme.lower():
         # S'assurer que la lettre est bien alphanumérique et pas des caractères cm '-'
-        if lettre.isascii():
+        if  'a' <= lettre <= 'z':
             if lettre in lettre_et_frequence:
                 lettre_et_frequence[lettre] +=1
             else:
@@ -69,3 +68,13 @@ def crypto_cesar(cryptogramme):
     # décrypter :
     message_clair = cesar(cryptogramme, -cle)
     return message_clair
+
+
+
+def main():
+    with open("cryptogramme_cesar.txt", "r",encoding='utf-8' ) as file:
+        cryptogramme = file.read()
+        print(crypto_cesar(cryptogramme))
+
+if __name__ == "__main__":
+    main()
