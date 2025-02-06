@@ -40,11 +40,13 @@ def build_cesar_key(cryptogramme):
     # Initier un dict pour enregistre cheque lettre et sa fréquence
     lettre_et_frequence = {}
     for lettre in cryptogramme.lower():
-        # S'assurer que la lettre est bien alphanumérique et pas des caractères cm '-'
+        # Si c'est une lettre
         if  'a' <= lettre <= 'z':
+            # Si la lettre est déjà dans le dict
             if lettre in lettre_et_frequence:
                 lettre_et_frequence[lettre] +=1
             else:
+                # Si la lettre n'est pas dans le dict
                 lettre_et_frequence[lettre] = 1
     # Avoir la lettre la plus fréquente
     lettre_plus_frequente = max(lettre_et_frequence, key=lettre_et_frequence.get)
@@ -70,9 +72,12 @@ def crypto_cesar(cryptogramme):
     return message_clair
 
 
-
+# Déchiffrer le cryptogramme pour avoir accès au chiffrement de HILL
 def main():
-    with open("cryptogramme_cesar.txt", "r", encoding='utf-8') as file:
+    """
+    Fonction principale
+    """
+    with open("cryptogramme_cesar.txt", "r",encoding='utf-8' ) as file:
         cryptogramme = file.read()
         print(crypto_cesar(cryptogramme))
 

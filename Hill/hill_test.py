@@ -1,5 +1,5 @@
 import unittest
-from Chiffrement.Hill.hill import *
+from cryptographie_classique.Hill.hill import *
 
 
 class TestHill(unittest.TestCase):

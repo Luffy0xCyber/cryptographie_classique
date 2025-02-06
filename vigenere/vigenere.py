@@ -1,13 +1,16 @@
-from Chiffrement.Cesar.cesar import build_cesar_key
-from Chiffrement.Hill.hill import gcd_euclid
+from cryptographie_classique.Cesar.cesar import build_cesar_key
+from cryptographie_classique.Hill.hill import gcd_euclid
 
 
 def encode_vigenere(message, mot_code):
     """
     Cette fonction réalise le chiffrement de vigenere du message
     param message: message en chiffrer
+    :type message: str
     param mot_code: clé de chiffrement
+    :type mot_code: str
     return: cryptogramme
+    :rtype: str
     """
     cryptogramme = ""
     # Générer ma liste d'alphabets
@@ -30,19 +33,24 @@ def encode_vigenere(message, mot_code):
 def decode_vigenere(message, mot_code):
     """
      Cette fonction réalise le déchiffrement de vigenere du cryptogramme
-    param cryptogramme: cryptogramme à déchiffrer
+    param message: cryptogramme à déchiffrer
+    :type message: str
     param mot_code: clé de chiffrement
+    :type mot_code: str
     return: message en clair
-
+    :rtype: str
     """
-    # Variable pr retourner le message en clair
     message_clair = ""
+    # Générer ma liste d'alphabets
     alphabets = [chr(i) for i in range(ord('a'), ord('z') + 1)]
+    # Générer position du mot_code (clé)
     position_mot_code = [alphabets.index(i) for i in mot_code]
     index_pos = 0
+    # Boucle pour déchiffrer
     for i in message:
+        # Récupérer l'indice de la lettre i
         index_i = alphabets.index(i)
-        # récupérer la position , j'ai utilisé le modulo pr ne pas dépasser les 26 lettres d'alphabets (éviter de déborder)
+        # récupérer la position, j'ai utilisé le modulo pr ne pas dépasser les 26 lettres d'alphabets (éviter de déborder)
         j = position_mot_code[index_pos % len(position_mot_code)]
         message_clair += alphabets[(index_i - j) % 26]
         index_pos += 1
@@ -56,14 +64,16 @@ def guess_password(cryptogramme, len_password):
     Cette fonction détermine le mot de passe surt base du cryptogramme et de la longueur du mot de passe.
     Elle utilise la cryptanalyse du chiffre de césar pour déterminer chaque lettre du mot de passe.
     param cryptogramme: cryptogramme à cryptanalyser
+    :type cryptogramme: str
     param len_password: longueur du mot de passe
+    :type len_password: int
     return: le mot de passe deviné
+    :rtype: str
     """
-    # Diviser le cryptomgramme en groupement. En effet, chaque groupe a été chiffré avec une seule
-    # lettre du mot de passe
-    # TODO A VOIR
+    # Générer les groupes de lettres, chaque groupe correspond à une lettre du mot de passe
     groupes = [cryptogramme[i::len_password] for i in range(len_password)]
     mot_de_passe = ""
+    # Boucle pour déterminer chaque lettre du mot de passe
     for i in groupes:
         # Déterminer la clé de chiffrement de césar pour chaque groupe
         mot_de_passe += chr(build_cesar_key(i) + ord('a'))
@@ -78,6 +88,7 @@ def guess_key_lenght(histo):
     param histo: histogramme des pgcd
     :type histo: dict
     return: la longueur du mot de passe (le mode)
+    :rtype: int
     """
 
     # Déterminer la valeur la plus fréquente
@@ -93,15 +104,20 @@ def build_histogram(pgcd):
     """
     Cette méthode construit l'histogramme des pgcd.
     param: les pgcd
+    :type pgcd: list
     return: histogramme des pgcd
+    :rtype: dict
     """
 
     # Initier un dictionnaire pour enregistrer les pgcd et leur fréquence
     histo = {}
+    # Boucle pour construire l'histogramme
     for i in pgcd:
+        # Si la clé existe déjà, j'incrémente la valeur
         if i in histo:
             histo[i] += 1
         else:
+            # Sinon, j'ajoute la clé avec la valeur 1
             histo[i] = 1
     return histo
 
@@ -110,9 +126,12 @@ def get_pgcd(distances):
     """
     Cette fonction calcul le pgcd entre toutes les distances de répétitions
     param distances: distances de répétition
+    :type distances: list
     return: les pgcd des distances 2 à 2
+    :rtype: list
     """
     pgcd = []
+    # Boucle pour calculer le pgcd entre toutes les distances
     for i in range(len(distances)):
         for j in range(i + 1, len(distances)):
             pgcd.append(gcd_euclid(distances[i], distances[j]))
@@ -124,9 +143,12 @@ def get_distances(dictonary_len_3):
     """
     Cette fonction calcul les distances des réptitions sur base de la position des occurences.
     param dictonary_len_3: les répititions et leur position
+    :type dictonary_len_3: dict
     return: les distances
+    :rtype: list
     """
     distances = []
+    # Boucle pour calculer les distances, j'ai utilisé 2 boucles pour comparer chaque élément avec les autres
     for key, value in dictonary_len_3.items():
         for i in range(len(value)):
             for j in range(i + 1, len(value)):
@@ -138,10 +160,13 @@ def get_sequence_positions(cryptogramme):
     """
     Cette fonction identifie les séquences de 3 lettres qui se répetent et leur position.
     param cryptogramme: cryptogramme à cryptanalyser
+    :type cryptogramme: str
     return: dictionnaire des séquences (clé=séquence de 3 lettres) et leurs positions (valeur=tableau de position)
+    :rtype: dict
     """
     # Initier un dictionnaire pour enregistrer les séquences et leur position
     dictionnaire = {}
+    # Boucle pour identifier les séquences de 3 lettres
     for i in range(len(cryptogramme) - 2):
         sequence = cryptogramme[i:i + 3] # récupérer la séquence de 3 lettres
         if sequence in dictionnaire:
@@ -162,20 +187,31 @@ def cryptanalyse_vigenere(cryptogramme):
      afin de corriger les éventuelles erreurs de cryptanalyse.
 
     param cryptogramme: cryptogramme à cryptanalyser
+    :type cryptogramme: str
     return: message en clair
+    :rtype: str
     """
+    # Récupérer les positions des séquences de 3 lettres
     sequence_positions = get_sequence_positions(cryptogramme)
+    # Calculer les distances
     distances = get_distances(sequence_positions)
+    # Calculer les pgcd
     pgcd = get_pgcd(distances)
+    # Construire l'histogramme des pgcd
     histogram = build_histogram(pgcd)
+    # Déterminer la longueur du mot de passe
     longueur_cle = guess_key_lenght(histogram)
     mot_de_passe_probable = guess_password(cryptogramme, longueur_cle)
+    # Afficher le mot de passe probable
     print(f"Mot de passe potentiel: {mot_de_passe_probable}")
-    mot_de_passe = input('Mot de passe? ')
+    mot_de_passe = input('Mot de passe ? ')
     return decode_vigenere(cryptogramme, mot_de_passe)
 
 
 def main():
+    """
+    Fonction principale
+    """
     with open("cryptogramme_vigenere.txt", "r", encoding='utf-8') as file:
         cryptogramme = file.read()
         print(cryptanalyse_vigenere(cryptogramme))
