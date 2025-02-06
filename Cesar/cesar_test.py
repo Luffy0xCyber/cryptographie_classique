@@ -1,5 +1,5 @@
 import unittest
-from Chiffrement.Cesar.cesar import *
+from cryptographie_classique.Cesar.cesar import *
 
 
 class TestCesar(unittest.TestCase):
