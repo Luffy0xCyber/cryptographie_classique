@@ -9,19 +9,25 @@ et illustre les bases de la cryptographie par substitution ou par transformation
 
 ## Structure 
 
-cryptographie-classique/
-├── cesar/
-│   ├── cesar.py           # Script chiffrement César
-│   ├── cesar_test.py      # Tests unitaires
-│   └── cryptogramme_cesar.txt  # Exemple
-├── vigenere/
-│   ├── vigenere.py        # Script chiffre Vigenère
-│   ├── vigenere_test.py   # Tests unitaires
-│   └── cryptogramme_vigenere.txt # Exemple
-├── hill/
-│   ├── hill.py            # Script chiffrement Hill
-│   └── hill_test.py       # Tests unitaires
-└── README.md              
+```mermaid
+graph TD
+
+    A[cryptographie-classique] --> B[cesar]
+    A --> C[vigenere]
+    A --> D[hill]
+    A --> E[README.md]
+
+    B --> B1[cesar.py]
+    B --> B2[cesar_test.py]
+    B --> B3[cryptogramme_cesar.txt]
+
+    C --> C1[vigenere.py]
+    C --> C2[vigenere_test.py]
+    C --> C3[cryptogramme_vigenere.txt]
+
+    D --> D1[hill.py]
+    D --> D2[hill_test.py]
+```
 
 ## Fonctionnalités principales
 
