@@ -29,10 +29,7 @@ cryptographie-classique/
 - Vigenère : Décalage selon une clé répétée, substitution polyalphabétique 
 - Hill : Chiffrement par blocs via multiplication matricielle mod 26
 
-
-----
-Auteur : Anas EL Faijah <br>
-Contacte moi : Via https://www.linkedin.com/in/anaselfaijah/  
 <br>
-or  elfaijahanas@gmail.com
-----
+
+Auteur : Anas EL Faijah <br>
+Contacte moi : Via https://www.linkedin.com/in/anaselfaijah/  or elfaijahanas@gmail.com <br>
