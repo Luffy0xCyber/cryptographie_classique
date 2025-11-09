@@ -12,7 +12,7 @@ et illustre les bases de la cryptographie par substitution ou par transformation
 ```mermaid
 graph TD
 
-    A[cryptographie-classique] --> B[cesar]
+    A[cryptographie_classique] --> B[cesar]
     A --> C[vigenere]
     A --> D[hill]
     A --> E[README.md]
