@@ -1,9 +1,6 @@
 # Projet : Cryptographie Classique
 
-----
-Auteur : Anas EL Faijah <br>
-Contacte moi : Via https://www.linkedin.com/in/anaselfaijah/ Or elfaijahanas@gmail.com
-----
+
 
 ## Introduction 
 
@@ -33,3 +30,9 @@ cryptographie-classique/
 - Hill : Chiffrement par blocs via multiplication matricielle mod 26
 
 
+----
+Auteur : Anas EL Faijah <br>
+Contacte moi : Via https://www.linkedin.com/in/anaselfaijah/  
+<br>
+or  elfaijahanas@gmail.com
+----
