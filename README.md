@@ -35,6 +35,11 @@ graph TD
 - Vigenère : Décalage selon une clé répétée, substitution polyalphabétique 
 - Hill : Chiffrement par blocs via multiplication matricielle mod 26
 
+## Note
+
+Ce projet a été réalisé dans le cadre du cours de Mathématique et physique donné par Monsieur François LUDEWIG.
+
+
 <br>
 
 Auteur : Anas EL Faijah <br>
